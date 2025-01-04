@@ -17,6 +17,13 @@ const TopMembersReport = () => {
         fetchTopMembers();
     }, []);
 
+    const dummyData = [
+        { memberId: 'M001', memberName: 'John Doe', booksBorrowed: 12 },
+        { memberId: 'M002', memberName: 'Jane Smith', booksBorrowed: 9 },
+        { memberId: 'M003', memberName: 'Alice Johnson', booksBorrowed: 8 },
+    ];
+
+
     return (
         <TableContainer component={Paper} sx={{ marginTop: 4 }}>
             <Typography variant="h6" sx={{ padding: 2 }}>Top Members Report</Typography>
@@ -29,7 +36,7 @@ const TopMembersReport = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {topMembers.map((row, index) => (
+                    {dummyData.map((row, index) => (
                         <TableRow key={row.memberId}>
                             <TableCell>{index + 1}</TableCell>
                             <TableCell>{row.memberName}</TableCell>

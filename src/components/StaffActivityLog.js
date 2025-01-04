@@ -17,6 +17,12 @@ const StaffActivityLog = () => {
         fetchActivityLog();
     }, []);
 
+    const dummyData = [
+        { id: 1, staffName: 'Emily White', action: 'Issued a book', timestamp: '2025-01-02 10:00 AM' },
+        { id: 2, staffName: 'Michael Brown', action: 'Returned a book', timestamp: '2025-01-02 12:30 PM' },
+        { id: 3, staffName: 'Emily White', action: 'Added a new book', timestamp: '2025-01-03 09:15 AM' },
+    ];
+
     return (
         <TableContainer component={Paper} sx={{ marginTop: 4 }}>
             <Typography variant="h6" sx={{ padding: 2 }}>Staff Activity Log</Typography>
@@ -29,7 +35,7 @@ const StaffActivityLog = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {activityLog.map((log) => (
+                    {dummyData.map((log) => (
                         <TableRow key={log.id}>
                             <TableCell>{log.staffName}</TableCell>
                             <TableCell>{log.action}</TableCell>

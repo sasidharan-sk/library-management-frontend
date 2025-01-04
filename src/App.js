@@ -5,6 +5,7 @@ import BookList from './components/Books/BookList';
 import Navbar from './components/Navbar';
 import MemberForm from './components/Members/MemberForm';
 import TransactionForm from './components/Transactions/TransactionForm';
+import Dashboard from './components/Dashboard';
 
 const App= () => {
     return (
@@ -15,6 +16,7 @@ const App= () => {
                 <Route path="/books/new" element={<BookForm />} />
                 <Route path="/members" element={<MemberForm />} />
                 <Route path="/transactions" element={<TransactionForm />} />
+                <Route path="/dashboard" element={<Dashboard />} />
                 {/* Add routes for Members, Transactions, Staff */}
             </Routes>
         </Router>

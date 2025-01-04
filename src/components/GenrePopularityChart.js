@@ -1,38 +1,54 @@
-import React, { useEffect, useState } from 'react';
-import { Pie } from 'react-chartjs-2';
-import axios from 'axios';
+import React, { useEffect, useRef } from 'react';
+import { Chart, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, PieController } from 'chart.js';
+
+// Register necessary components for the pie chart
+Chart.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, PieController);
 
 const GenrePopularityChart = () => {
-    const [chartData, setChartData] = useState({ labels: [], datasets: [] });
+    const chartRef = useRef(null);
 
     useEffect(() => {
-        const fetchChartData = async () => {
-            try {
-                const res = await axios.get('http://localhost:5000/api/reports/genre-popularity');
-                const genres = res.data.map((genre) => genre.genre);
-                const counts = res.data.map((genre) => genre.count);
+        if (chartRef.current) {
+            const ctx = chartRef.current.getContext('2d');
 
-                setChartData({
-                    labels: genres,
+            const chartInstance = new Chart(ctx, {
+                type: 'pie', // Pie chart type
+                data: {
+                    labels: ['Fiction', 'Non-Fiction', 'Sci-Fi', 'Biography', 'Manga', 'Education', 'Fantasy', 'History', 'Self-Help', 'Romance'], // Expanded genre list
                     datasets: [
                         {
                             label: 'Books Borrowed by Genre',
-                            data: counts,
-                            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
+                            data: [30, 20, 25, 15, 50, 10, 40, 35, 60, 45], // More data points for each genre
+                            backgroundColor: [
+                                '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#3cc35e', '#c738b9', // Colors for each genre
+                                '#f56a79', '#7a9be5', '#c9e247', '#e5a57c'
+                            ],
                         },
                     ],
-                });
-            } catch (err) {
-                console.error('Error fetching chart data:', err);
-            }
-        };
-        fetchChartData();
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false, // Allows custom sizing
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            enabled: true,
+                        },
+                    },
+                },
+            });
+
+            // Cleanup to avoid "Canvas is already in use" error
+            return () => chartInstance.destroy();
+        }
     }, []);
 
     return (
-        <div>
-            <h3>Genre Popularity</h3>
-            <Pie data={chartData} />
+        <div style={{ width: '400px', height: '420px', margin: '0 auto' }}>
+            <h3 style={{ textAlign: 'center' }}>Genre Popularity</h3>
+            <canvas ref={chartRef} />
         </div>
     );
 };

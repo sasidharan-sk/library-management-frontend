@@ -17,6 +17,25 @@ const OverdueBooksReport = () => {
         fetchOverdueBooks();
     }, []);
 
+    const dummyData = [
+        {
+            transactionId: 'T1001',
+            memberName: 'John Doe',
+            bookTitle: 'The Great Gatsby',
+            returnDate: '2025-01-01',
+            daysOverdue: 5,
+            fineAmount: 10,
+        },
+        {
+            transactionId: 'T1002',
+            memberName: 'Jane Smith',
+            bookTitle: '1984',
+            returnDate: '2024-12-30',
+            daysOverdue: 3,
+            fineAmount: 6,
+        },
+    ];
+
     return (
         <TableContainer component={Paper} sx={{ marginTop: 4 }}>
             <Typography variant="h6" sx={{ padding: 2 }}>Overdue Books Report</Typography>
@@ -32,7 +51,7 @@ const OverdueBooksReport = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {overdueBooks.map((row) => (
+                    {dummyData.map((row) => (
                         <TableRow key={row.transactionId}>
                             <TableCell>{row.transactionId}</TableCell>
                             <TableCell>{row.memberName}</TableCell>
