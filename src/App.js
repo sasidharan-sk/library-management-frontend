@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import BookForm from './components/Books/BookForm';
+import BookList from './components/Books/BookList';
+import Navbar from './components/Navbar';
+import MemberForm from './components/Members/MemberForm';
+import TransactionForm from './components/Transactions/TransactionForm';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App= () => {
+    return (
+        < Router>
+            <Navbar />
+            <Routes>
+                <Route path="/books" element={<BookList />} />
+                <Route path="/books/new" element={<BookForm />} />
+                <Route path="/members" element={<MemberForm />} />
+                <Route path="/transactions" element={<TransactionForm />} />
+                {/* Add routes for Members, Transactions, Staff */}
+            </Routes>
+        </Router>
+    );
+};
 
 export default App;
